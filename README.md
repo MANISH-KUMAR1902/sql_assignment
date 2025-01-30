@@ -7,7 +7,7 @@ mysql -u root -p
 CREATE USER 'replication_user'@'192.168.1.20' IDENTIFIED BY 'Replic@2025';
 GRANT REPLICATION SLAVE ON *.* TO 'replication_user'@'192.168.1.20';
 FLUSH PRIVILEGES;
-SHOW MASTER STATUS;  ``
+SHOW MASTER STATUS;  ```
 
 ```sql
 CHANGE MASTER TO MASTER_HOST='Master_IP', 
@@ -28,7 +28,7 @@ CREATE TABLE user_details (
     UNIQUE KEY(user_email, user_phone)
 );
 
-```sql
+
 INSERT INTO user_details (user_name, user_email, user_phone) 
 VALUES
 INSERT INTO user_details (user_name, user_email, user_phone) 
