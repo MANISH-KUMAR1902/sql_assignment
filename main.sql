@@ -63,64 +63,7 @@ xtrabackup --copy-back --target-dir=/var/backups/full_backup
   'Set correct permissions:'
 chown -R mysql:mysql /var/lib/mysql
 
-'10. Theoretical Analysis
-a. Create my.cnf File
-Critical parameters:
-[mysqld]
-server-id=1
-log-bin=/var/lib/mysql/mysql-bin
-binlog-format=ROW
-innodb_buffer_pool_size=1G
-max_connections=200
-slow_query_log=1
-slow_query_log_file=/var/log/mysql/slow.log
-query_cache_size=64M
-Explanation:
 
-server-id: Unique identifier for the server in replication.
-log-bin: Enables binary logging for replication.
-binlog-format: Sets binary log format to row-based replication.
-innodb_buffer_pool_size: Memory allocated for caching InnoDB data.
-max_connections: Limits concurrent client connections.
-slow_query_log: Enables logging of queries that take longer than a threshold.
-query_cache_size: Memory allocated for caching query results.
-b. Lifecycle of an UPDATE Operation
-Client Request: User issues an UPDATE query.
-Parsing and Optimization: MySQL parses the query and generates an execution plan.
-Storage Engine Call: The query is forwarded to the relevant storage engine (e.g., InnoDB).
-Transaction Management: InnoDB locks the rows being updated and starts a transaction.
-Modification: Changes are made in memory (buffer pool).
-Logging: Changes are logged in the redo and binary logs for recovery and replication.
-Commit: Once successful, the transaction is committed.
-Replication: Updates are sent to replicas via binary logs if replication is enabled.
-
-  11. Shell/Bash Script for Server Load Monitoring
-Create a script to monitor load average:
-
-
-#!/bin/bash
-
-# Set the threshold
-THRESHOLD=2.0
-
-# Get the current load average
-LOAD=$(awk '{print $1}' /proc/loadavg)
-
-# Compare and print warning if exceeded
-if (( $(echo "$LOAD > $THRESHOLD" | bc -l) )); then
-  echo "Warning: Load average is high - $LOAD"
-else
-  echo "Load average is normal - $LOAD"
-fi
-Save the script as check_load.sh and make it executable:
-
-
-chmod +x check_load.sh
-Run the script:
-
-
-./check_load.sh
-'
 
 ```
 
