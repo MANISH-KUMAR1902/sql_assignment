@@ -28,4 +28,26 @@ CREATE TABLE user_details (
     UNIQUE KEY(user_email, user_phone)
 );
 
-```
+```sql
+INSERT INTO user_details (user_name, user_email, user_phone) 
+VALUES
+INSERT INTO user_details (user_name, user_email, user_phone) 
+VALUES
+INSERT INTO user_details (user_name, user_email, user_phone) 
+VALUES
+('Aarav', 'aarav@example.com', '9876543210'),
+('Vihaan', 'vihaan@example.com', '8765432109'),
+('Reyansh', 'reyansh@example.com', '7654321098'),
+('Sai', 'sai@example.com', '6543210987'),
+('Ishaan', 'ishaan@example.com', '5432109876'),
+('Kabir', 'kabir@example.com', '4321098765'),
+('Vivaan', 'vivaan@example.com', '3210987654'),
+('pk', 'pk@example.com', '2109876543'),
+('Atharv', 'atharv@example.com', '1098765432'),
+('mk', 'mk@example.com', '0987654321');
+
+CREATE TABLE test_db_2.user_details AS SELECT * FROM test_db_1.user_details;
+CREATE TABLE test_db_3.user_details AS SELECT * FROM test_db_1.user_details;
+
+ALTER TABLE test_db_3.user_details ADD COLUMN user_address VARCHAR(255); ```
+
