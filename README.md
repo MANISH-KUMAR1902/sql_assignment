@@ -53,7 +53,9 @@ CREATE TABLE test_db_3.user_details AS SELECT * FROM test_db_1.user_details;
 ALTER TABLE test_db_3.user_details ADD COLUMN user_address VARCHAR(255);
  ```
 ```bash
-### Full Backup of All Schemas
+
+###
+Full Backup of All Schemas
 mysqldump -u root -p --all-databases > full_backup.sql
   
 ### Backup Schema & Table Structures (Without Data)
