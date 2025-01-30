@@ -1,5 +1,5 @@
 # mysql_dba
-##Configure the Replica:
+## Configure the Replica:
 ```sql
 # Login to MySQL as root
 mysql -u root -p
@@ -52,37 +52,37 @@ CREATE TABLE test_db_3.user_details AS SELECT * FROM test_db_1.user_details;
 
 ALTER TABLE test_db_3.user_details ADD COLUMN user_address VARCHAR(255);
  ```
-
-'''Full Backup of All Schemas'''
+```bash
+### Full Backup of All Schemas
 mysqldump -u root -p --all-databases > full_backup.sql
   
-''' Backup Schema & Table Structures (Without Data)'''
+### Backup Schema & Table Structures (Without Data)
 mysqldump -u root -p --no-data --all-databases > schema_backup.sql
 
-'''Full Backup Using Percona Xtrabackup'''
+### Full Backup Using Percona Xtrabackup
 xtrabackup --backup --target-dir=/var/backups/full_backup
 
 Restorations
-'Restore Backup from ful_backup'
+### Restore Backup from ful_backup
   
 mysql -u root -p < full_backup.sql
   
-' Restore Backup without data'
+### Restore Backup without data
 mysql -u root -p < schema_backup.sql
   
-'Restore Xtrabackup
-Prepare the backup: '
+### Restore Xtrabackup
+### Prepare the backup: 
 xtrabackup --prepare --target-dir=/var/backups/full_backup
   
-'Restore the backup:'
+### Restore the backup:
 xtrabackup --copy-back --target-dir=/var/backups/full_backup
 
-  'Set correct permissions:'
+### Set correct permissions:
 chown -R mysql:mysql /var/lib/mysql
 
-'10. Theoretical Analysis
-a. Create my.cnf File
-Critical parameters:
+## Theoretical Analysis
+### Create my.cnf File
+### Critical parameters:
 [mysqld]
 server-id=1
 log-bin=/var/lib/mysql/mysql-bin
@@ -92,7 +92,7 @@ max_connections=200
 slow_query_log=1
 slow_query_log_file=/var/log/mysql/slow.log
 query_cache_size=64M
-Explanation:
+''' Explanation:
 
 server-id: Unique identifier for the server in replication.
 log-bin: Enables binary logging for replication.
@@ -110,9 +110,10 @@ Modification: Changes are made in memory (buffer pool).
 Logging: Changes are logged in the redo and binary logs for recovery and replication.
 Commit: Once successful, the transaction is committed.
 Replication: Updates are sent to replicas via binary logs if replication is enabled.
+'''
 
-  11. Shell/Bash Script for Server Load Monitoring
-Create a script to monitor load average:
+## Shell/Bash Script for Server Load Monitoring
+### Create a script to monitor load average:
 
 
 #!/bin/bash
