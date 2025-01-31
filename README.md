@@ -54,23 +54,32 @@ ALTER TABLE test_db_3.user_details ADD COLUMN user_address VARCHAR(255);
  ```
 ```bash
 
-###
-Full Backup of All Schemas
+### 8.backups:
+### a. Using mysqldump : take a full backup of all schemas
 mysqldump -u root -p --all-databases > full_backup.sql
   
-### Backup Schema & Table Structures (Without Data)
+### b. Using mysqldump : take the backup of ONLY ‘schema & table structures’ (without data)
 mysqldump -u root -p --no-data --all-databases > schema_backup.sql
 
-### Full Backup Using Percona Xtrabackup
+### c. Using percona xtrabackup : take a full backup of all schemas
 xtrabackup --backup --target-dir=/var/backups/full_backup
 
-Restorations
-### Restore Backup from ful_backup
+### 9. Restorations:
+### a. Restore the backup taken in point 8.a
   
 mysql -u root -p < full_backup.sql
   
-### Restore Backup without data
+### b. Restore the backup taken in point 8.b
 mysql -u root -p < schema_backup.sql
-  
+### c. Restore the backup taken in point 8.c
+sudo xtrabackup --prepare --target-dir=/path/to/backup_dir
+sudo xtrabackup --copy-back --target-dir=/path/to/backup_dir
+
+### a. Create a ‘my.cnf’ file -
+### Briefly explain all the critical parameters which you defined in this my.cnf file.
+
+The my.cnf file is the primary configuration file for MySQL/MariaDB. It allows database administrators to control the server behavior, performance, security, and backup settings.
+
+
 
 ```
