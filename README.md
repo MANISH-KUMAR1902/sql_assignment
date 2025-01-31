@@ -74,7 +74,7 @@ mysql -u root -p < schema_backup.sql
 ### c. Restore the backup taken in point 8.c
 sudo xtrabackup --prepare --target-dir=/path/to/backup_dir
 sudo xtrabackup --copy-back --target-dir=/path/to/backup_dir
-
+'''
 ### 10. Theoretical analysis:
 a. Create a ‘my.cnf’ file -
 Briefly explain all the critical parameters which you defined in this my.cnf file.
@@ -109,7 +109,7 @@ client?
 ### 11. Create a shell/bash script -
 The script should check server’s current load-average and print a warning if load-average
 exceeds a particular threshold
-
+'''
 #!/bin/bash
 
 threshold=1.0
