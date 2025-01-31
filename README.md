@@ -75,11 +75,50 @@ mysql -u root -p < schema_backup.sql
 sudo xtrabackup --prepare --target-dir=/path/to/backup_dir
 sudo xtrabackup --copy-back --target-dir=/path/to/backup_dir
 
-### a. Create a ‘my.cnf’ file -
-### Briefly explain all the critical parameters which you defined in this my.cnf file.
+### 10. Theoretical analysis:
+a. Create a ‘my.cnf’ file -
+Briefly explain all the critical parameters which you defined in this my.cnf file.
 
-The my.cnf file is the primary configuration file for MySQL/MariaDB. It allows database administrators to control the server behavior, performance, security, and backup settings.
+The my.cnf file is the primary configuration file for MySQL/MariaDB. It allows database administrators
+to control the server behavior, performance, security, and backup settings.
 
+Server Configuration – Defines how MySQL starts and operates.
+Performance Optimization – Allocates memory, CPU, and caching resources.
+Security – Restricts access and prevents unauthorized operations.
+Backup & Recovery – Configures logging and backup strategies.
 
+Critical Parameters:
+-server-id: Unique ID for replication.
+-log-bin: Enables binary logging for master replication.
+-innodb_buffer_pool_size: Optimizes InnoDB performance.
+-max_connections: Controls max simultaneous connections.
+
+b. Explain, in your wordings -
+In your own words, describe the lifecycle of an UPDATE operation in MySQL. What all
+happens internally (mysql internals) when an UPDATE query is issued by a user on the mysql
+client?
+
+-MySQL checks syntax before executing the query.
+-MySQL optimizes the query to find data efficiently.
+-InnoDB locks the row to prevent conflicts(to prevent other queries from modifying it at the same time).
+-MySQL stores old data in Undo Log for rollback safety.
+-The update is recorded in Redo Log to protect against crashes.
+-The update becomes permanent after COMMIT.
+-MySQL flushes data to disk in the background.
+
+### 11. Create a shell/bash script -
+The script should check server’s current load-average and print a warning if load-average
+exceeds a particular threshold
+
+#!/bin/bash
+
+threshold=1.0
+load=$(cat /proc/loadavg | awk '{print $1}')
+
+if (( $(echo "$load > $threshold" | bc -l) )); then
+    echo "Warning: High load average ($load)"
+else
+    echo "Load average is normal ($load)"
+fi
 
 ```
